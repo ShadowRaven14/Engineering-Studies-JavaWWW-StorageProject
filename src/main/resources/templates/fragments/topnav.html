@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<div th:fragment="navbar" xmlns:th="http://www.w3.org/1999/xhtml">
+
+    <style>
+        .navbar-fragment {
+            background-color: #7565d9;
+            text-align: center;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+
+    <nav class="navbar-fragment navbar fixed-top navbar-expand-sm navbar-light">
+        <div class="container">
+            <a
+                    class="navbar-brand mb-0 h1">
+                <img
+                        class="d-inline-block align-top"
+                        src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg"
+                        width="30" height="30" />
+                Strona z Informacjami
+            </a>
+            <button
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarNav"
+                    class="navbar-toggler"
+                    aria-controls="navbarNav"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div
+                    class="collapse navbar-collapse"
+                    id="navbarNav">
+                <ul class="navbar-nav">
+
+                    <!--Informacje-->
+                    <li sec:authorize="isAuthenticated()"
+                            class="nav-item dropdown">
+                        <a href="#"
+                           class="nav-link dropdown-toggle"
+                           id="navbarDropdown"
+                           role="button"
+                           data-bs-toggle="dropdown"
+                           aria-expanded="false">
+                            <b>Informacje</b>
+                        </a>
+                        <ul class="dropdown-menu"
+                            aria-labelledby="navbarDropdown">
+                            <a th:href = "@{/informations}" class="dropdown-item">Wyświetl Informacje</a>
+                            <a th:href = "@{/newInformation}" class="dropdown-item">Dodaj Informacje</a>
+                            <a th:href = "@{/sharedInformation}" class="dropdown-item">Udostępnione dla Ciebie</a>
+                        </ul>
+                    </li>
+
+                    <!--Kategorie-->
+                    <li sec:authorize="isAuthenticated()"
+                            class="nav-item dropdown">
+                        <a href="#"
+                           class="nav-link dropdown-toggle"
+                           id="navbarDropdown-v2"
+                           role="button"
+                           data-bs-toggle="dropdown"
+                           aria-expanded="false">
+                            <b>Kategorie</b>
+                        </a>
+                        <ul class="dropdown-menu"
+                            aria-labelledby="navbarDropdown-v2">
+                            <a th:href = "@{/categories}" class="dropdown-item">Wyświetl Kategorie</a>
+                            <a th:href = "@{/newCategory}" class="dropdown-item">Dodaj Kategorie</a>
+                        </ul>
+                    </li>
+
+                    <!--Użytkownicy-->
+                    <li sec:authorize="isAuthenticated()"
+                            class="nav-item dropdown">
+                        <a href="#"
+                           class="nav-link dropdown-toggle"
+                           id="navbarDropdown-v4"
+                           role="button"
+                           data-bs-toggle="dropdown"
+                           aria-expanded="false">
+                            <b>Panel Admina</b>
+                        </a>
+                        <ul class="dropdown-menu"
+                            aria-labelledby="navbarDropdown-v3">
+                            <a th:href = "@{/users}" class="dropdown-item">Użytkownicy</a>
+                        </ul>
+                    </li>
+
+
+                    <!--Użytkownik-->
+                    <div sec:authorize="isAuthenticated()"
+                         style="display: flex; align-items: center;">
+                        <b style="text-indent:20px; padding-right: 15px; color: #5e2531; font-size: 122%">
+                            <strong>
+                                <span> Konto: </span>
+                                <span th:text="${#authentication.getPrincipal().getUsername()}"></span>
+                            </strong>
+                        </b>
+
+                        <a class="btn btn-outline-secondary" href="/logout"
+                           style="background-color: #f66778; color: #fff;"><b>Wyloguj</b></a>
+                    </div>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+</div>

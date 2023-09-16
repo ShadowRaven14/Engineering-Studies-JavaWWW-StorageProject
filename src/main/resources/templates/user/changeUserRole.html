@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Zmiana ról</title>
+
+  <link rel="stylesheet"
+        href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
+
+  <style>
+    .background {
+      background-image: url('https://img.freepik.com/darmowe-wektory/recznie-malowane-akwarela-pastelowe-niebo-w-tle_23-2148902771.jpg?w=2000');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      position: relative;
+      min-height: 100vh;
+    }
+    .footer-fragment {
+      position: absolute;
+    }
+  </style>
+</head>
+
+
+<body class="background" style="margin-top: 100px">
+
+<!--MENU-->
+<div th:replace="fragments/topnav :: navbar"></div>
+
+<div class="container">
+  <h1>Zmiana roli użytkowników</h1>
+  <hr>
+  <h2>Zmien rolę!</h2>
+
+
+  <form action="#" th:action="@{/changeUserRole}" method="POST" th:object="${role}">
+    <label>Dostępne role:</label>
+    <div>
+      <select th:field="*{name}" class="form-control mb-4 col-4">
+        <option th:each="role : ${roleList}"
+                th:text="${role.name}"
+                th:value="${role.name}">
+      </select>
+
+      <!-- Add hidden form field to handle update -->
+      <input type="hidden" th:value="${user.id}" />
+      <input type="text" th:value="${user.name}" class="form-control mb-4 col-4" hidden>
+      <input type="text" th:value="${user.surname}" class="form-control mb-4 col-4" hidden>
+      <input type="text" th:value="${user.login}" class="form-control mb-4 col-4" hidden>
+      <input type="text" th:value="${user.password}" class="form-control mb-4 col-4" hidden>
+      <input type="text" th:value= "${user.age}" class="form-control mb-4 col-4" hidden>
+    </div>
+
+    <hr>
+    <button type="submit" class="btn btn-info col-2">Zmień rolę</button>
+  </form>
+
+  <hr>
+  <b><a th:href = "@{/users}">Powrót do listy użytkowników</a></b>
+
+</div>
+
+<!--FOOTER-->
+<div th:replace="fragments/botfooter :: footer"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+</body>
+</html>

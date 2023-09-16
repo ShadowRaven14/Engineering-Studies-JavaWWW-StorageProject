@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Kategorie</title>
+
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
+
+    <style>
+        .background {
+            background-image: url('https://img.freepik.com/darmowe-wektory/recznie-malowane-akwarela-pastelowe-niebo-w-tle_23-2148907305.jpg?w=2000');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            position: relative;
+            min-height: 80vh;
+        }
+        .footer-fragment {
+            position: relative;
+            margin-top: 50vh;
+        }
+    </style>
+</head>
+
+
+<body class="background" style="margin-top: 100px">
+
+
+    <!--MENU-->
+    <div th:replace="fragments/topnav :: navbar"></div>
+
+    <!--Strona-->
+    <header class="header">
+        <div class="container my-4">
+
+            <div class="row">
+                <!-- Tytuł -->
+                <h1 style="margin-left: 10px;">Lista kategorii</h1>
+
+                <!-- Dodaj -->
+                <a th:href = "@{/newCategory}" style="white-space:pre; margin-top: 10px; margin-left: 2%;"
+                   class="form-control mb-1 col-1 btn btn-primary btn-sm"><h4>Dodaj</h4></a>
+            </div>
+
+
+            <!-- Jeśli brak elementów -->
+            <h1 style="padding: 10px" th:text="${listCategories.size()>0}
+                ? '':'Brak dostępnych kategorii :/'"></h1>
+
+            <!-- Lista elementów -->
+            <table th:if="${listCategories.size()>0}" class="table table-striped table-responsive-md">
+                <thead>
+                    <tr>
+                        <th>Nazwa kategorii</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="category : ${listCategories}">
+                        <td th:text="${category.name}"></td>
+                        <td> <a th:href="@{/updateCategory/{id}(id=${category.id})}" class="btn btn-primary">Aktualizuj</a>
+                             <a th:href="@{/deleteCategory/{id}(id=${category.id})}" class="btn btn-danger">Usuń</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </header>
+
+    <!--FOOTER-->
+    <div th:replace="fragments/botfooter :: footer"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
+</body>
+</html>

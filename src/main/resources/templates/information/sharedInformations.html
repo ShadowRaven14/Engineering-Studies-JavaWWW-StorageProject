@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Informations</title>
+
+  <link rel="stylesheet"
+        href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
+
+  <style>
+        .background {
+           background-image: url('https://img.freepik.com/darmowe-wektory/recznie-malowane-akwarela-pastelowe-niebo-w-tle_23-2148902771.jpg?w=2000');
+           background-size: cover;
+           background-position: center;
+           background-repeat: no-repeat;
+           position: relative;
+           min-height: 100vh;
+        }
+        .footer-fragment {
+          position: relative;
+          margin-top: 50vh;
+        }
+        #txtSearch {
+            /*height: 10%;*/
+            padding: 6px 12px;
+        }
+    </style>
+</head>
+
+
+<body class="background" style="margin-top: 100px">
+
+  <!--MENU-->
+  <div th:replace="fragments/topnav :: navbar"></div>
+
+  <!--Strona-->
+  <header class="header">
+    <div class="container my-4" style="margin-top: 400px">
+      <div class="row">
+        <!-- Tytuł -->
+        <h1 style="margin-left: 10px;">Udostępnione informacje</h1>
+      </div>
+
+      <hr>
+
+      <div class="container">
+        <div class="row">
+          <!-- Filtruj -->
+          <form id="filterDa" class="col-sm-3" th:action = "@{/informations}" method="get">
+            <h3>Filtruj</h3>
+            <input id="filterInput" type="date" name="datee"
+                   th:value="${{datee}}" class="col-sm-7 form-control mb-2 col-2">
+
+            <select name="cat" class="col-sm-7 form-control mb-2 col-2">
+              <option th:each="category : ${listCategories}"
+                      th:text="${category.name}"
+                      th:value="${category.id}"
+                      th:selected="${cate}"
+              >
+            </select>
+            <button type="submit" class="col-sm-7 form-control mb-2 col-2 btn btn-success">Filtruj</button>
+          </form>
+
+          <!-- Wyszukaj -->
+          <form id="search-input" class="col-sm-3" th:action = "@{/sharedInformations}" method="get">
+            <h3>Wyszukaj</h3>
+            <input id="txtSearch" type="text" name="keyword"
+                   placeholder="Wyszukiwane" class="col-sm-7 form-control mb-2 col-2">
+            <button type="submit" class="col-sm-7 mb-2 col-2 btn btn-success">Szukaj</button>
+          </form>
+        </div>
+      </div>
+
+      <hr>
+
+
+      <h1 style="padding: 10px" th:text="${listInformations.size()>0}
+          ? '':'Brak dostępnych informacji :/'"></h1>
+
+      <table th:if="${listInformations.size()>0}" class="table table-striped table-responsive-md">
+        <thead>
+        <tr>
+          <th>ID:</th>
+          <th>Nazwa:</th>
+          <th>Zawartość:</th>
+          <th>Data:
+            <a th:href = "@{/informationsFilteredAsc}">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-up" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z"/>
+              </svg>
+            </a>
+            <a th:href = "@{/informationsFilteredDesc}">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-down" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1z"/>
+              </svg>
+            </a>
+          </th>
+          <th>Kategoria:</th>
+          <th>Udostępniona przez:</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="information : ${listInformations}">
+          <td th:text="${information.id}"></td>
+          <td th:text="${information.title}"></td>
+          <td th:text="${information.content}"></td>
+          <td th:text="${#temporals.format(information.date, 'dd-MM-yyyy')}"></td>
+          <td th:text="${information.category.name}"></td>
+          <td th:text="${information.user.login}"></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </header>
+
+  <!--FOOTER-->
+  <div th:replace="fragments/botfooter :: footer"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+          crossorigin="anonymous"></script>
+</body>
+</html>

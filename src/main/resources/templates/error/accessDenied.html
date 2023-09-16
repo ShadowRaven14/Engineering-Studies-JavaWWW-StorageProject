@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link href="https://fonts.googleapis.com/css?family=Raleway:500,800" rel="stylesheet" />
+
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
+
+    <style>
+        .background {
+            background-image: url('https://img.freepik.com/darmowe-wektory/recznie-malowane-akwarela-pastelowe-niebo-w-tle_23-2148907305.jpg?w=2000');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            position: relative;
+            min-height: 100vh;
+        }
+        .footer-fragment {
+            position: absolute;
+        }
+        #txtSearch {
+            height: 10%;
+            padding: 6px 12px;
+        }
+    </style>
+
+
+    <title>Access Denied</title>
+</head>
+<body class="background" style="margin-top: 100px">
+
+    <!--MENU-->
+    <div th:replace="fragments/topnav :: navbar"></div>
+
+    <!--Strona-->
+    <header class="header">
+        <div class="container my-4" style="margin-top: 400px">
+            <h1>Nie masz dostępu do tej strony!</h1>
+            <h2>
+                <!--                      th:text="${#authentication.getPrincipal().getUsername()}">-->
+                Skontaktuj się z Adminem, aby zmienił Twoją rolę.
+            </h2>
+            <span th:object="${rola}" th:text="${rola}"></span>
+
+            <img th:src="@{https://www.pngkey.com/png/detail/813-8130282_denied-png-access-denied-stamp-png.png}"/>
+
+        </div>
+    </header>
+
+    <!--FOOTER-->
+    <div th:replace="fragments/botfooter :: footer"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
+</body>
+</html>
